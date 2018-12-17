@@ -42,7 +42,7 @@ def isLegalPlayMode(mode):
     return False
 
 
-#defines whether the move is legal, meaning that it is a number from 1 to 9 and that the place on the board is still empty
+#defines whether the move is legal, meaning that it is a number from 1 to 9 and that the square on the board is still empty
 def isLegalMove(board, move):
     if isinstance(move, int) or move.isdigit():
         if 0 < int(move) < 10:
@@ -54,9 +54,9 @@ def isLegalMove(board, move):
 #function is called when it is player's turn
 #asks the user for input and checks whether the move is legal
 def askForMove(board):
-    move = raw_input("Give the number where you want to place your mark: ")
+    move = raw_input("Give the square number in which you want to place your mark: ")
     while not (isLegalMove(board, move)):
-        move = raw_input("Invalid move! Give the number where you want to place your mark: ")
+        move = raw_input("Invalid move! Give the square number in which you want to place your mark: ")
     return int(move)
 
 
@@ -84,7 +84,7 @@ def computersMove(board):
                         if isinstance(board[j], int):
                             return j+1
 
-    #places the mark in the middle of the board if possible, if not, mark is randomly placed in a free spot
+    #places the mark in the middle of the board if possible, if not, mark is randomly placed in a free square
     if isLegalMove(board, 5):
         return 5
     else:
@@ -145,7 +145,7 @@ while(raw_input("Do you want to play? (y/n)") == "y"):
             if winner:
                 print currentPlayer[0] + " wins!"
                 break
-            if moves == 9:                                      #the board has no more empty spaces for playmarks
+            if moves == 9:                                      #the board has no more empty squares for playmarks
                 print "No winner this time."
                 winner = True
                 break
@@ -158,7 +158,7 @@ while(raw_input("Do you want to play? (y/n)") == "y"):
         #player vs. computer mode
         if playMode == 2:
 
-            #when player is on turn
+            #when player is in turn
             if currentPlayer == players["player"]:
                 print currentPlayer[0] + " in turn" + "\n"
                 move = askForMove(board)
@@ -178,11 +178,11 @@ while(raw_input("Do you want to play? (y/n)") == "y"):
                 else:
                     currentPlayer = players["player"]
 
-            #when computer is on turn
+            #when computer is in turn
             if currentPlayer == players["computer"]:
                 print currentPlayer[0] + " in turn" + "\n"
                 move = computersMove(board)
-                board[move - 1] = currentPlayer[1]              #computers playmark is added to the board
+                board[move - 1] = currentPlayer[1]              #computers playmark is placed to the board
                 moves += 1
                 drawBoard(board)
                 winner = checkWinner(board, currentPlayer)
